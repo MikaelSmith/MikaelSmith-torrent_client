@@ -13,48 +13,52 @@
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves. This is your 30 second elevator pitch for your module. Consider including OS/Puppet version it works with.       
+
+A client for downloading files via the BitTorrent protocol from a [torrent-server](https://github.com/MikaelSmith/torrent-server).
 
 ## Module Description
 
-If applicable, this section should have a brief description of the technology the module integrates with and what that integration enables. This section should answer the questions: "What does this module *do*?" and "Why would I use it?"
+This module uses [QuartzTorrent](https://rubygems.org/gems/quartz_torrent) BitTorrent library written in Ruby to download files served from a [torrent-server](https://github.com/MikaelSmith/torrent-server). Using BitTorrent to transfer files can result in faster transfers with less load on the file server.
 
-If your module has a range of functionality (installation, configuration, management, etc.) this is the time to mention it.
+The module includes two classes:
+- `torrent_client` to configure the system for downloading files using BitTorrent
+- `torrent_file` to download individual files
 
 ## Setup
 
 ### What torrent_client affects
 
-* A list of files, packages, services, or operations that the module will alter, impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form. 
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled, etc.), mention it here. 
+Setup will install the [QuartzTorrent](https://rubygems.org/gems/quartz_torrent) gem in the Ruby environment used to run Puppet.
 
 ### Beginning with torrent_client
 
-The very basic steps needed for a user to get the module up and running. 
-
-If your most recent release breaks compatibility or requires particular steps for upgrading, you may wish to include an additional section here: Upgrading (For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
-
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing the fancy stuff with your module here. 
+```
+include '::torrent_client'
+
+Torrent_File {
+  server => 'http://filehost:6969',
+}
+
+torrent_file {'large file':
+  path => '/tmp',
+}
+```
 
 ## Reference
 
-Here, list the classes, types, providers, facts, etc contained in your module. This section should include all of the under-the-hood workings of your module so people know what the module is touching on their system but don't need to mess with things. (We are working on automating this section!)
+### Classes
 
-## Limitations
+- `torrent_client`: install the [QuartzTorrent](https://rubygems.org/gems/quartz_torrent) gem
 
-This is where you list OS compatibility, version compatibility, etc.
+### Resources
 
-## Development
+#### torrent_file
 
-Since your module is awesome, other users will want to play with it. Let them know what the ground rules for contributing are.
+Downloads a file.
 
-## Release Notes/Contributors/Etc **Optional**
-
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You may also add any additional sections you feel are necessary or important to include here. Please use the `## ` header. 
+- file: namevar, name of the file as stored on the server
+- path: fully qualified file path for a directory to download the file to.
+- ensure: ensure the file is present/absent.
+- server: torrent server name and port
