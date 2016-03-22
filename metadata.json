@@ -1,0 +1,33 @@
+{
+  "name": "MikaelSmith-torrent_client",
+  "version": "0.1.0",
+  "author": "MikaelSmith",
+  "summary": "A client for downloading files via the BitTorrent protocol from a torrent-server.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/MikaelSmith/MikaelSmith-torrent_client",
+  "project_page": "https://github.com/MikaelSmith/MikaelSmith-torrent_client",
+  "issues_url": "https://github.com/MikaelSmith/MikaelSmith-torrent_client/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 1.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    }
+  ]
+}
