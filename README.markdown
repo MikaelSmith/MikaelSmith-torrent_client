@@ -18,19 +18,17 @@ A client for downloading files via the BitTorrent protocol from a [torrent-serve
 
 ## Module Description
 
-This module uses [QuartzTorrent](https://rubygems.org/gems/quartz_torrent) BitTorrent library written in Ruby to download files served from a [torrent-server](https://github.com/MikaelSmith/torrent-server). Using BitTorrent to transfer files can result in faster transfers with less load on the file server.
+This module uses [libtorrent](http://www.libtorrent.org/) BitTorrent library written in C++ to download files served from a [torrent-server](https://github.com/MikaelSmith/torrent-server). Using BitTorrent to transfer files can result in faster transfers with less load on the file server.
 
 The module includes two classes:
-- `torrent_client` to configure the system for downloading files using BitTorrent
+- `torrent_client` to configure the system for downloading files using BitTorrent (not currently working)
 - `torrent_file` to download individual files
 
 ## Setup
 
-### What torrent_client affects
-
-Setup will install the [QuartzTorrent](https://rubygems.org/gems/quartz_torrent) gem in the Ruby environment used to run Puppet.
-
 ### Beginning with torrent_client
+
+Install [libtorrent](http://www.libtorrent.org/), then compile an upcoming torrent_client based on the [simple_client example](https://github.com/MikaelSmith/libtorrent/blob/improve-simple-client/examples/simple_client.cpp).
 
 ## Usage
 
@@ -38,7 +36,8 @@ Setup will install the [QuartzTorrent](https://rubygems.org/gems/quartz_torrent)
 include '::torrent_client'
 
 Torrent_File {
-  server => 'http://filehost:6969',
+  server => 'http://filehost:8000/torrent',
+  port   => 5555,
 }
 
 torrent_file {'large file':
@@ -50,7 +49,7 @@ torrent_file {'large file':
 
 ### Classes
 
-- `torrent_client`: install the [QuartzTorrent](https://rubygems.org/gems/quartz_torrent) gem
+- `torrent_client`: install client prereqs
 
 ### Resources
 
@@ -59,6 +58,7 @@ torrent_file {'large file':
 Downloads a file.
 
 - file: namevar, name of the file as stored on the server
-- path: fully qualified file path for a directory to download the file to.
-- ensure: ensure the file is present/absent.
-- server: torrent server name and port
+- ensure: ensure the file is present/absent
+- path: (required) fully qualified file path for a directory to download the file to
+- server: (required) torrent server name and port
+- port: port to use for the BitTorrent, defaults to 5555
