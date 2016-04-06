@@ -8,6 +8,7 @@ require 'cgi'
 require 'uri'
 
 Puppet::Type.type(:torrent_file).provide(:ruby) do
+    confine :feature => :torrent_client
 
   def filename
     File.join(resource[:path], resource[:name])
@@ -23,8 +24,6 @@ Puppet::Type.type(:torrent_file).provide(:ruby) do
   end
 
   def create
-    require 'torrent_client'
-
     uri = URI("#{resource[:server]}/#{CGI.escape(resource[:name])}")
     metastring = Net::HTTP.get(uri)
     torrent_file = Tempfile.new("#{resource[:name]}.torrent")
