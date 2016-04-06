@@ -21,7 +21,7 @@ A client for downloading files via the BitTorrent protocol from a [torrent-serve
 This module uses [libtorrent](http://www.libtorrent.org/) BitTorrent library written in C++ to download files served from a [torrent-server](https://github.com/MikaelSmith/torrent-server). Using BitTorrent to transfer files can result in faster transfers with less load on the file server.
 
 The module includes two classes:
-- `torrent_client` to configure the system for downloading files using BitTorrent (not currently working)
+- `torrent_client` to configure the system for downloading files using BitTorrent
 - `torrent_file` to download individual files
 
 ## Setup
@@ -30,10 +30,17 @@ The module includes two classes:
 
 Install [libtorrent](http://www.libtorrent.org/) and [boost](https://www.boost.org/) as pre-requisites for building the [torrent_client](https://github.com/MikaelSmith/torrent_client) Ruby gem.
 
+On Mac OS X, that can be done via Homebrew
+```
+brew install boost libtorrent-rasterbar
+```
+
 ## Usage
 
 ```
-include '::torrent_client'
+class {'::torrent_client':
+  provider => 'puppet_gem',
+}
 
 Torrent_File {
   server => 'http://filehost:8000/torrent',
@@ -49,7 +56,11 @@ torrent_file {'large file':
 
 ### Classes
 
-- `torrent_client`: install client prereqs; currently only [torrent_client](https://github.com/MikaelSmith/torrent_client)
+#### torrent_client
+
+Install client prereqs; currently only [torrent_client](https://github.com/MikaelSmith/torrent_client).
+
+- provider: select which package provider to use to install Ruby gems. Defaults to `puppet_gem`.
 
 ### Resources
 
