@@ -28,7 +28,7 @@ The module includes two classes:
 
 ### Beginning with torrent_client
 
-Install [libtorrent](http://www.libtorrent.org/), then compile an upcoming torrent_client based on the [simple_client example](https://github.com/MikaelSmith/libtorrent/blob/improve-simple-client/examples/simple_client.cpp).
+Install [libtorrent](http://www.libtorrent.org/) and [boost](https://www.boost.org/) as pre-requisites for building the [torrent_client](https://github.com/MikaelSmith/torrent_client) Ruby gem.
 
 ## Usage
 
@@ -49,7 +49,7 @@ torrent_file {'large file':
 
 ### Classes
 
-- `torrent_client`: install client prereqs
+- `torrent_client`: install client prereqs; currently only [torrent_client](https://github.com/MikaelSmith/torrent_client)
 
 ### Resources
 

@@ -23,20 +23,15 @@ Puppet::Type.type(:torrent_file).provide(:ruby) do
   end
 
   def create
-    # TODO: download file
+    require 'torrent_client'
+
     uri = URI("#{resource[:server]}/#{CGI.escape(resource[:name])}")
     metastring = Net::HTTP.get(uri)
     torrent_file = Tempfile.new("#{resource[:name]}.torrent")
     torrent_file.write metastring
     torrent_file.close
 
-    pwd = Dir.pwd
-    begin
-      Dir.chdir resource[:path]
-      Puppet::Util::Execution.execute(['torrent_client', torrent_file.path])
-    ensure
-      Dir.chdir pwd
-    end
+    TorrentClient.download torrent_file.path, resource[:path]
   end
 
   def destroy
