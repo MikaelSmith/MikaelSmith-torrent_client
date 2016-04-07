@@ -7,7 +7,7 @@ class torrent_client (
   $provider = 'puppet_gem'
 ) {
   package {'torrent_client':
-    ensure   => '0.1.0',
+    ensure   => '0.2.1',
     provider => $provider,
   }
 }

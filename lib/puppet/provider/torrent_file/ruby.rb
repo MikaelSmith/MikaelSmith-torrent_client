@@ -14,23 +14,24 @@ Puppet::Type.type(:torrent_file).provide(:ruby) do
     File.join(resource[:path], resource[:name])
   end
 
-  def exists?
-    Puppet::FileSystem.exist? filename
-  end
+  def torrent_path
+    return @torrent_path if @torrent_path
 
-  def insync?(is)
-    # TODO: implement content consistency check via torrent
-    super
-  end
-
-  def create
     uri = URI("#{resource[:server]}/#{CGI.escape(resource[:name])}")
     metastring = Net::HTTP.get(uri)
     torrent_file = Tempfile.new("#{resource[:name]}.torrent")
     torrent_file.write metastring
     torrent_file.close
 
-    TorrentClient.download torrent_file.path, resource[:path]
+    @torrent_path = torrent_file.path
+  end
+
+  def exists?
+    TorrentClient.verify torrent_path, resource[:path]
+  end
+
+  def create
+    TorrentClient.download torrent_path, resource[:path]
   end
 
   def destroy
