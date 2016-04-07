@@ -1,12 +1,12 @@
 {
-  "name": "MikaelSmith-torrent_client",
+  "name": "msmith-torrent_client",
   "version": "0.1.0",
-  "author": "MikaelSmith",
+  "author": "msmith",
   "summary": "A client for downloading files via the BitTorrent protocol from a torrent-server.",
   "license": "Apache-2.0",
-  "source": "https://github.com/MikaelSmith/MikaelSmith-torrent_client",
-  "project_page": "https://github.com/MikaelSmith/MikaelSmith-torrent_client",
-  "issues_url": "https://github.com/MikaelSmith/MikaelSmith-torrent_client/issues",
+  "source": "https://github.com/MikaelSmith/msmith-torrent_client",
+  "project_page": "https://github.com/MikaelSmith/msmith-torrent_client",
+  "issues_url": "https://github.com/MikaelSmith/msmith-torrent_client/issues",
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
